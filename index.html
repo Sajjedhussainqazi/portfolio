@@ -9,6 +9,17 @@
 <meta name="description" content="Sajjed Hussain Qazi – Software Engineer specializing in Full Stack Development, AI/ML, and Computer Vision.">
 <meta name="author" content="Sajjed Hussain Qazi">
 
+    <!-- Canonical & Robots -->
+    <link rel="canonical" href="https://sajjedhussainqazi.github.io/portfolio/" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sajjed Hussain Qazi | Software Engineer Portfolio" />
+    <meta property="og:description" content="Entry-Level Software Engineer skilled in Python, Java, React, FastAPI, DSA, AI/ML, and Computer Vision." />
+    <meta property="og:url" content="https://sajjedhussainqazi.github.io/portfolio/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://sajjedhussainqazi.github.io/portfolio/images/sajjed.png" />
+
     <style>
         :root {
             --primary: #2178CE;
@@ -20,6 +31,8 @@
             --text-secondary: #b0b0b0;
             --accent: #00d4ff;
             --success: #4ade80;
+            --nav-height-desktop: 80px;
+            --nav-height-mobile: 70px;
         }
 
         * {
@@ -28,66 +41,170 @@
             box-sizing: border-box;
         }
 
+        /* IMPORTANT: ensure body has top padding so fixed nav doesn't overlap content */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
             color: var(--text-primary);
             line-height: 1.6;
             min-height: 100vh;
+            padding-top: var(--nav-height-desktop);
         }
 
-        /* Navigation */
+        /* Navigation - UPDATED */
         nav {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
+            height: var(--nav-height-desktop);
             background: rgba(15, 20, 25, 0.95);
             backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
             z-index: 1000;
             border-bottom: 1px solid rgba(0, 212, 255, 0.1);
         }
 
+        /* nav container uses same .container styles below, but ensure flex alignment for nav */
         nav .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
+            height: 100%;
+            padding: 0 2rem;
         }
 
+        /* logo (keeps your image) */
         nav .logo {
-    display: flex;
-    align-items: center;
-}
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+        }
 
-nav .logo img {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
-}
+        nav .logo img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            border-radius: 6px;
+        }
 
+        nav .logo span {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1rem;
+        }
 
+        /* desktop menu */
         nav ul {
             display: flex;
             list-style: none;
             gap: 2rem;
+            align-items: center;
         }
 
         nav a {
             color: var(--text-primary);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.25s ease;
+            font-weight: 600;
         }
 
         nav a:hover {
             color: var(--accent);
         }
 
+        /* mobile hamburger */
+        .nav-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+        }
+
+        .nav-toggle .bar {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text-primary);
+            margin: 3px 0;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        /* mobile menu (hidden by default) - slides from left */
+        .mobile-nav {
+            position: fixed;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(10,12,14,0.98);
+            z-index: 1100;
+            padding: calc(var(--nav-height-mobile) + 20px) 1.5rem;
+            transition: left 0.28s cubic-bezier(.2,.8,.2,1);
+            overflow-y: auto;
+        }
+
+        .mobile-nav.open {
+            left: 0;
+        }
+
+        .mobile-nav .profile {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-nav .profile img {
+            width: 72px;
+            height: 72px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-top: 1rem;
+            padding-left: 0;
+        }
+
+        .mobile-nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive adjustments */
         @media (max-width: 768px) {
+            body {
+                padding-top: var(--nav-height-mobile);
+            }
+
+            nav {
+                height: var(--nav-height-mobile);
+            }
+
+            /* hide desktop ul and show hamburger */
             nav ul {
-                gap: 1rem;
-                font-size: 0.9rem;
+                display: none;
+            }
+
+            .nav-toggle {
+                display: flex;
             }
         }
 
@@ -416,7 +533,7 @@ nav .logo img {
             border-top: 1px solid rgba(0, 212, 255, 0.1);
         }
 
-        /* Responsive */
+        /* Responsive tweaks */
         @media (max-width: 768px) {
             .hero-content h1 {
                 font-size: 2rem;
@@ -430,9 +547,24 @@ nav .logo img {
                 font-size: 1.8rem;
             }
 
-            nav ul {
+            .cta-buttons {
                 flex-direction: column;
-                gap: 1rem;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            section {
+                padding: 60px 1rem;
             }
         }
 
@@ -441,15 +573,39 @@ nav .logo img {
             scroll-behavior: smooth;
         }
     </style>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sajjed Hussain Qazi",
+      "url": "https://sajjedhussainqazi.github.io/portfolio/",
+      "image": "https://sajjedhussainqazi.github.io/portfolio/images/sajjed.png",
+      "jobTitle": "Software Engineer",
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Baba Ghulam Shah Badshah University"
+      },
+      "sameAs": [
+        "https://github.com/Sajjedhussainqazi",
+        "https://www.linkedin.com/in/sajjed-hussain-qazi/",
+        "https://www.instagram.com/hey.sajjed/"
+      ]
+    }
+    </script>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation (UPDATED) -->
     <nav>
         <div class="container">
             <a href="#home" class="logo">
-  <img src="images/sajjed.png" alt="Logo">
-</a>
-            <ul>
+                <img src="images/sajjed.png" alt="Logo">
+                <span>Sajjed</span>
+            </a>
+
+            <!-- desktop menu -->
+            <ul id="desktop-nav">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -457,8 +613,37 @@ nav .logo img {
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+
+            <!-- hamburger for mobile -->
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile sliding menu -->
+    <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+        <div class="container">
+            <div class="profile">
+                <img src="images/sajjed.png" alt="Sajjed profile">
+                <div>
+                    <div style="color:var(--text-primary); font-weight:800;">Sajjed Hussain Qazi</div>
+                    <div style="color:var(--text-secondary); font-size:0.95rem;">Software Engineer</div>
+                </div>
+            </div>
+
+            <ul>
+                <li><a href="#home" class="mobile-link">Home</a></li>
+                <li><a href="#about" class="mobile-link">About</a></li>
+                <li><a href="#skills" class="mobile-link">Skills</a></li>
+                <li><a href="#experience" class="mobile-link">Experience</a></li>
+                <li><a href="#projects" class="mobile-link">Projects</a></li>
+                <li><a href="#contact" class="mobile-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -655,36 +840,61 @@ nav .logo img {
     </footer>
 
     <script>
-        // Smooth active link highlighting
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href.startsWith('#')) {
-                    document.querySelectorAll('nav a').forEach(a => a.style.color = '');
-                    this.style.color = 'var(--accent)';
-                }
-            });
-        });
+        // NAV toggle logic (open mobile menu and close when link clicked)
+        (function() {
+            const navToggle = document.getElementById('navToggle');
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
 
-        // Scroll-based nav link highlighting
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section');
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                }
+            // If elements missing, do nothing (prevents errors)
+            if (!navToggle || !mobileNav) return;
+
+            navToggle.addEventListener('click', () => {
+                const isOpen = mobileNav.classList.toggle('open');
+                mobileNav.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+                navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             });
 
-            document.querySelectorAll('nav a').forEach(a => {
-                a.style.color = '';
-                if (a.getAttribute('href') === '#' + current) {
-                    a.style.color = 'var(--accent)';
-                }
+            // close mobile menu on link click
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.remove('open');
+                    mobileNav.setAttribute('aria-hidden', 'true');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                });
             });
-        });
+
+            // Desktop: highlight active link on click
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        document.querySelectorAll('nav a').forEach(a => a.style.color = '');
+                        this.style.color = 'var(--accent)';
+                    }
+                });
+            });
+
+            // Scroll-based active highlight
+            window.addEventListener('scroll', () => {
+                const sections = document.querySelectorAll('section');
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                document.querySelectorAll('nav a').forEach(a => {
+                    a.style.color = '';
+                    if (a.getAttribute('href') === '#' + current) {
+                        a.style.color = 'var(--accent)';
+                    }
+                });
+            });
+        })();
     </script>
 </body>
 </html>
